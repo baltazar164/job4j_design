@@ -34,7 +34,7 @@ class BoxTest {
                 .isMixedCase();
     }
     @Test
-    void numberOfTetrahedronVertices() {
+    void NumberOfTetrahedronVertices() {
         List<Integer> cases = Arrays.asList(0, 4, 8);
         Box box = new Box(4, 6);
         int numberOfVertices = box.getNumberOfVertices();
@@ -43,7 +43,7 @@ class BoxTest {
                 .isIn(cases);
     }
     @Test
-    void numberOfCubeVertices() {
+    void NumberOfCubeVertices() {
         List<Integer> cases = Arrays.asList(0, 4, 8);
         Box box = new Box(8, 12);
         int numberOfVertices = box.getNumberOfVertices();
@@ -52,21 +52,21 @@ class BoxTest {
                 .isIn(cases);
     }
     @Test
-    void tetrahedronIsExist() {
+    void tetrahedronIsExist(){
         Box box = new Box(4, 6);
         boolean isExist = box.isExist();
         assertThat(isExist).isTrue()
                 .isEqualTo(true);
     }
     @Test
-    void cubeIsExist() {
+    void cubeIsExist(){
         Box box = new Box(8, 12);
         boolean isExist = box.isExist();
         assertThat(isExist).isTrue()
                 .isEqualTo(true);
     }
     @Test
-    void tetrahedronArea() {
+    void tetrahedronArea(){
         int edge = 6;
         Box box = new Box(4, edge);
         double a = edge;
@@ -75,7 +75,7 @@ class BoxTest {
                 .isPositive();
     }
     @Test
-    void cubeArea() {
+    void cubeArea(){
         int edge = 12;
         Box box = new Box(8, edge);
         double a = edge;
