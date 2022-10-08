@@ -46,7 +46,7 @@ class SimpleConvertTest {
     void checkMap() {
         SimpleConvert simpleConvert = new SimpleConvert();
         Map<String, Integer> actualMap = simpleConvert.toMap("first", "second", "three", "four", "five");
-        Map<String, Integer> expectedMap = Map.of("second", 1 , "four", 3);
+        Map<String, Integer> expectedMap = Map.of("second", 1, "four", 3);
         assertThat(actualMap).containsAllEntriesOf(expectedMap);
     }
 }
