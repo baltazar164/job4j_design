@@ -6,23 +6,6 @@ import java.util.NoSuchElementException;
 
 class MatrixItTest  {
 
-//    @Test
-//    void when4El() {
-//        int[][] in = {
-//                {1}, {1, 2}, {2}
-//        };
-//        MatrixIt it = new MatrixIt(in);
-//        assertThat(it.next()).isEqualTo(1);
-//        assertThat(it.hasNext()).isTrue();
-//        assertThat(it.next()).isEqualTo(1);
-//        assertThat(it.hasNext()).isTrue();
-//        assertThat(it.next()).isEqualTo(2);
-//        assertThat(it.hasNext()).isTrue();
-//        assertThat(it.next()).isEqualTo(2);
-//        assertThat(it.hasNext()).isFalse();
-//        assertThatThrownBy(it::next).isInstanceOf(NoSuchElementException.class);
-//    }
-
     @Test
     void when4El() {
         int[][] in = {
