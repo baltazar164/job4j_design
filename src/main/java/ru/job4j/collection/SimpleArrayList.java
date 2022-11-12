@@ -16,31 +16,28 @@ public class SimpleArrayList<T> implements SimpleList<T> {
 
     @Override
     public void add(T value) {
-        modCount++;
         if (size == container.length) {
-            container = grow();
+            grow();
         }
-        container[size] = value;
-        size = size + 1;
+        container[size++] = value;
+        modCount++;
     }
 
     @Override
     public T set(int index, T newValue) throws IndexOutOfBoundsException {
-        Objects.checkIndex(index, size);
-        T oldValue = container[index];
+        T oldValue = get(index);
         container[index] = newValue;
         return oldValue;
     }
 
     @Override
     public T remove(int index) throws IndexOutOfBoundsException {
-        Objects.checkIndex(index, size);
-        modCount++;
-        T oldValue = container[index];
+        T oldValue = get(index);
         if ((--size) > index) {
             System.arraycopy(container, index + 1, container, index, size - index);
         }
         container[size] = null;
+        modCount++;
         return oldValue;
     }
 
@@ -62,29 +59,26 @@ public class SimpleArrayList<T> implements SimpleList<T> {
             final int expectedModCount = modCount;
 
             @Override
-            public boolean hasNext() {
+            public boolean hasNext() throws ConcurrentModificationException {
+                if (modCount != expectedModCount) {
+                    throw new ConcurrentModificationException();
+                }
                 return cursor != size;
             }
 
             @Override
             public T next() throws ConcurrentModificationException, NoSuchElementException {
-                checkForComodification();
                 if (!hasNext()) {
                     throw new NoSuchElementException();
                 }
                 return container[cursor++];
             }
-
-            void checkForComodification() throws ConcurrentModificationException {
-                if (modCount != expectedModCount) {
-                    throw new ConcurrentModificationException();
-                }
-            }
         };
     }
 
-    private T[] grow() {
-        return Arrays.copyOf(container, size * 2);
+    private void grow() {
+        if (size != 0) {
+            container = Arrays.copyOf(container, size * 2);
+        }
     }
-
 }
