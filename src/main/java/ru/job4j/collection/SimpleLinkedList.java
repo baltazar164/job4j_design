@@ -15,19 +15,17 @@ public class SimpleLinkedList<E> implements LinkedList<E> {
     private static class Node<E> {
         E item;
         Node<E> next;
-        Node<E> prev;
 
-        Node(Node<E> prev, E element, Node<E> next) {
+        Node(E element, Node<E> next) {
             this.item = element;
             this.next = next;
-            this.prev = prev;
         }
     }
 
     @Override
     public void add(E value) {
         Node<E> oldLast = last;
-        last = new Node<>(last, value, null);
+        last = new Node<>(value, null);
         if (oldLast == null) {
             first = last;
         } else {
