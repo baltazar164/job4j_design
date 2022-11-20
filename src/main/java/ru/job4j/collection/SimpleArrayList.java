@@ -10,6 +10,10 @@ public class SimpleArrayList<T> implements SimpleList<T> {
 
     private int modCount;
 
+    public SimpleArrayList() {
+        this.container = (T[]) new Object[10];
+    }
+
     public SimpleArrayList(int capacity) {
         this.container = (T[]) new Object[capacity];
     }
@@ -77,8 +81,6 @@ public class SimpleArrayList<T> implements SimpleList<T> {
     }
 
     private void grow() {
-        if (size != 0) {
-            container = Arrays.copyOf(container, size * 2);
-        }
+        container = Arrays.copyOf(container, size * 2);
     }
 }
