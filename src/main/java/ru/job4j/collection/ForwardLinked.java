@@ -57,13 +57,9 @@ public class ForwardLinked<T> implements Iterable<T> {
         }
         T value = head.value;
         head.value = null;
-        if (head.next == null) {
-            head = null;
-        } else {
-            Node<T> oldHead = head;
-            head = head.next;
-            oldHead.next = null;
-        }
+        Node<T> oldHead = head;
+        head = head.next;
+        oldHead.next = null;
         return value;
     }
 
