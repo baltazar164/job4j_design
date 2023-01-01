@@ -1,9 +1,6 @@
 package ru.job4j.map;
 
-import java.util.Arrays;
-import java.util.ConcurrentModificationException;
-import java.util.Iterator;
-import java.util.NoSuchElementException;
+import java.util.*;
 
 public class SimpleMap<K, V> implements Map<K, V> {
 
@@ -72,7 +69,7 @@ public class SimpleMap<K, V> implements Map<K, V> {
                 result = false;
             } else if (table[i].key == null && key != null) {
                 result = false;
-            } else if (table[i].key.hashCode() == key.hashCode() && table[i].key.equals(key)) {
+            } else if (table[i].key.hashCode() == key.hashCode() && Objects.equals(table[i].key, key)) {
                 result = true;
             } else {
                 result = false;
