@@ -63,13 +63,11 @@ public class SimpleMap<K, V> implements Map<K, V> {
         if (table[i] == null) {
             result = false;
         } else {
-            if (key == null & table[i].key == null) {
-                result = true;
-            } else if (key == null && table[i].key != null) {
+            int t = Objects.hashCode(null);
+            if (table[i] == null) {
                 result = false;
-            } else if (table[i].key == null && key != null) {
-                result = false;
-            } else if (table[i].key.hashCode() == key.hashCode() && Objects.equals(table[i].key, key)) {
+            } else if (Objects.hashCode(key) == Objects.hashCode(table[i].key)
+                && Objects.equals(key, table[i].key)) {
                 result = true;
             } else {
                 result = false;
