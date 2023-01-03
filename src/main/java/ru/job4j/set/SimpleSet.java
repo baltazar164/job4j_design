@@ -24,12 +24,7 @@ public class SimpleSet<T> implements Set<T> {
     public boolean contains(T value) {
         boolean result = false;
         for (T e : set) {
-            if (value == null) {
-                if (e == null) {
-                    result = true;
-                    break;
-                }
-            } else if (Objects.equals(e, value)) {
+            if (Objects.equals(e, value)) {
                 result = true;
                 break;
             }
