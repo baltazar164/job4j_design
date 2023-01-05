@@ -8,8 +8,6 @@ public class SimpleMap<K, V> implements Map<K, V> {
 
     private int capacity = 8;
 
-    private int count = 0;
-
     private int modCount = 0;
 
     private MapEntry<K, V>[] table = new MapEntry[capacity];
@@ -17,13 +15,12 @@ public class SimpleMap<K, V> implements Map<K, V> {
     @Override
     public boolean put(K key, V value) {
         boolean result = false;
-        if (count >= capacity * LOAD_FACTOR) {
+        if (modCount >= capacity * LOAD_FACTOR) {
             expand();
         }
         int i = indexFor(key);
         if (table[i] == null) {
             table[i] = new MapEntry<>(key, value);
-            count++;
             modCount++;
             result = true;
         }
@@ -35,14 +32,7 @@ public class SimpleMap<K, V> implements Map<K, V> {
     }
 
     private int indexFor(K key) {
-        int i;
-        if (key == null) {
-            i = 0;
-        } else {
-            int hash = hash(key.hashCode());
-            i = (table.length - 1) & hash;
-        }
-        return i;
+        return (table.length - 1) & hash(Objects.hashCode(key));
     }
 
     private void expand() {
@@ -50,30 +40,17 @@ public class SimpleMap<K, V> implements Map<K, V> {
         int newCap = capacity << 1;
         capacity = newCap;
         table = new MapEntry[newCap];
-        count = 0;
         for (MapEntry<K, V> entry: oldTable) {
             if (entry != null) {
-                put(entry.key, entry.value);
+                table[indexFor(entry.key)] = entry;
             }
         }
     }
 
     private boolean checkKeyEquals(K key, int i) {
-        Boolean result;
-        if (table[i] == null) {
-            result = false;
-        } else {
-            int t = Objects.hashCode(null);
-            if (table[i] == null) {
-                result = false;
-            } else if (Objects.hashCode(key) == Objects.hashCode(table[i].key)
-                && Objects.equals(key, table[i].key)) {
-                result = true;
-            } else {
-                result = false;
-            }
-        }
-        return result;
+        return table[i] != null
+                && Objects.hashCode(key) == Objects.hashCode(table[i].key)
+                && Objects.equals(key, table[i].key);
     }
 
 
@@ -90,7 +67,7 @@ public class SimpleMap<K, V> implements Map<K, V> {
         boolean keyEquals = checkKeyEquals(key, i);
         if (keyEquals) {
             table[i] = null;
-            modCount++;
+            modCount--;
         }
         return keyEquals;
     }
